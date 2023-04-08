@@ -8,6 +8,12 @@ if(!isset($_SESSION['super_admin_name'])){
    header('location:login_form.php');
 }
 
+$show = "SELECT * FROM `user_form`";
+$result = mysqli_query($conn, $show);
+
+// $update = "UPDATE `user_form` SET 'user_type' = '$user_type' WHERE 'email' = '$email'";
+// $res = mysqli_query($conn, $update); 
+
 ?>
 
 <!doctype html>
@@ -34,11 +40,11 @@ if(!isset($_SESSION['super_admin_name'])){
 
   <body>
     <nav class="navbar navbar-dark sticky-top bg-dark flex-md-nowrap p-0">
-      <a class="navbar-brand col-sm-3 col-md-2 mr-0 font-weight-bold" href="#">AarogyaAI</a>
+      <a class="navbar-brand col-sm-3 col-md-2 mr-0 font-weight-bold" href="#">AarogyaAI ID</a>
       <input class="form-control form-control-dark w-50" type="text" placeholder="Search" aria-label="Search">
       <ul class="navbar-nav px-3">
         <li class="nav-item text-nowrap">
-          <a class="nav-link border border-white p-2 rounded-sm" href="./logout.php">Sign out</a>
+          <a class="nav-link border border-white p-1 rounded-sm" href="./logout.php">Sign out</a>
         </li>
       </ul>
     </nav>
@@ -138,137 +144,35 @@ if(!isset($_SESSION['super_admin_name'])){
 
           <canvas class="my-4" id="myChart" width="900" height="380"></canvas>
 
-          <h2>Section title</h2>
+          <h2>User Details</h2>
           <div class="table-responsive">
             <table class="table table-striped table-sm">
               <thead>
                 <tr>
-                  <th>#</th>
-                  <th>Header</th>
-                  <th>Header</th>
-                  <th>Header</th>
-                  <th>Header</th>
+                  <th>ID</th>
+                  <th>Name</th>
+                  <th>Email</th>
+                  <th>Mobile Number</th>
+                  <th>User Role</th>
                 </tr>
               </thead>
               <tbody>
-                <tr>
-                  <td>1,001</td>
-                  <td>Lorem</td>
-                  <td>ipsum</td>
-                  <td>dolor</td>
-                  <td>sit</td>
-                </tr>
-                <tr>
-                  <td>1,002</td>
-                  <td>amet</td>
-                  <td>consectetur</td>
-                  <td>adipiscing</td>
-                  <td>elit</td>
-                </tr>
-                <tr>
-                  <td>1,003</td>
-                  <td>Integer</td>
-                  <td>nec</td>
-                  <td>odio</td>
-                  <td>Praesent</td>
-                </tr>
-                <tr>
-                  <td>1,003</td>
-                  <td>libero</td>
-                  <td>Sed</td>
-                  <td>cursus</td>
-                  <td>ante</td>
-                </tr>
-                <tr>
-                  <td>1,004</td>
-                  <td>dapibus</td>
-                  <td>diam</td>
-                  <td>Sed</td>
-                  <td>nisi</td>
-                </tr>
-                <tr>
-                  <td>1,005</td>
-                  <td>Nulla</td>
-                  <td>quis</td>
-                  <td>sem</td>
-                  <td>at</td>
-                </tr>
-                <tr>
-                  <td>1,006</td>
-                  <td>nibh</td>
-                  <td>elementum</td>
-                  <td>imperdiet</td>
-                  <td>Duis</td>
-                </tr>
-                <tr>
-                  <td>1,007</td>
-                  <td>sagittis</td>
-                  <td>ipsum</td>
-                  <td>Praesent</td>
-                  <td>mauris</td>
-                </tr>
-                <tr>
-                  <td>1,008</td>
-                  <td>Fusce</td>
-                  <td>nec</td>
-                  <td>tellus</td>
-                  <td>sed</td>
-                </tr>
-                <tr>
-                  <td>1,009</td>
-                  <td>augue</td>
-                  <td>semper</td>
-                  <td>porta</td>
-                  <td>Mauris</td>
-                </tr>
-                <tr>
-                  <td>1,010</td>
-                  <td>massa</td>
-                  <td>Vestibulum</td>
-                  <td>lacinia</td>
-                  <td>arcu</td>
-                </tr>
-                <tr>
-                  <td>1,011</td>
-                  <td>eget</td>
-                  <td>nulla</td>
-                  <td>Class</td>
-                  <td>aptent</td>
-                </tr>
-                <tr>
-                  <td>1,012</td>
-                  <td>taciti</td>
-                  <td>sociosqu</td>
-                  <td>ad</td>
-                  <td>litora</td>
-                </tr>
-                <tr>
-                  <td>1,013</td>
-                  <td>torquent</td>
-                  <td>per</td>
-                  <td>conubia</td>
-                  <td>nostra</td>
-                </tr>
-                <tr>
-                  <td>1,014</td>
-                  <td>per</td>
-                  <td>inceptos</td>
-                  <td>himenaeos</td>
-                  <td>Curabitur</td>
-                </tr>
-                <tr>
-                  <td>1,015</td>
-                  <td>sodales</td>
-                  <td>ligula</td>
-                  <td>in</td>
-                  <td>libero</td>
-                </tr>
+                <?php 
+                    if (mysqli_num_rows($result) > 0) {
+                        while($row = mysqli_fetch_assoc($result)) {
+                            echo "<tr><td>" . $row["id"] . "</td><td style='text-transform: capitalize;'>" . $row["name"] . "</td><td>" . $row["email"] . "</td><td>" . $row["mobile_num"] ."</td><td style='text-transform: capitalize;'>" . $row["user_type"] . "</td></tr>";
+                        }
+                    } else {
+                        echo "0 results";
+                    }
+                ?>
               </tbody>
             </table>
           </div>
         </main>
       </div>
     </div>
+
 
     <!-- Bootstrap core JavaScript
     ================================================== -->

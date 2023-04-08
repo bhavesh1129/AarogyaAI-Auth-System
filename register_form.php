@@ -9,6 +9,7 @@ if(isset($_POST['submit'])){
    $pass = md5($_POST['password']);
    $cpass = md5($_POST['cpassword']);
    $user_type = $_POST['user_type'];
+   $mobile_num = $_POST['mobile_num'];
 
    $select = " SELECT * FROM user_form WHERE email = '$email' && password = '$pass' ";
 
@@ -23,7 +24,7 @@ if(isset($_POST['submit'])){
       if($pass != $cpass){
          $error[] = 'password not matched!';
       }else{
-         $insert = "INSERT INTO user_form(name, email, password, user_type) VALUES('$name','$email','$pass','$user_type')";
+         $insert = "INSERT INTO user_form(name, email, password, mobile_num) VALUES('$name','$email','$pass', '$mobile_num')";
          mysqli_query($conn, $insert);
          header('location:login_form.php');
       }
@@ -61,13 +62,14 @@ if(isset($_POST['submit'])){
       ?>
       <input type="text" name="name" required placeholder="enter your name">
       <input type="email" name="email" required placeholder="enter your email">
+      <input type="tel" name="mobile-num" required placeholder="enter your mobile number" maxlength="10" pattern="[0-9]{10}">
       <input type="password" name="password" required placeholder="enter your password">
       <input type="password" name="cpassword" required placeholder="confirm your password">
-      <select name="user_type">
+      <!-- <select name="user_type">
          <option value="user">user</option>
          <option value="admin">admin</option>
          <option value="super-admin">super admin</option>
-      </select>
+      </select> -->
       <input type="submit" name="submit" value="register now" class="form-btn">
       <p>already have an account? <a href="login_form.php">login now</a></p>
    </form>
