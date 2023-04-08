@@ -9,7 +9,7 @@ if(isset($_POST['submit'])){
    $pass = md5($_POST['password']);
    $cpass = md5($_POST['cpassword']);
    $user_type = $_POST['user_type'];
-   $mobile_num = $_POST['mobile_num'];
+   $mobile_num = mysqli_real_escape_string($conn, $_POST['mobile_num']);
 
    $select = " SELECT * FROM user_form WHERE email = '$email' && password = '$pass' ";
 
@@ -29,9 +29,7 @@ if(isset($_POST['submit'])){
          header('location:login_form.php');
       }
    }
-
 };
-
 
 ?>
 
@@ -62,7 +60,7 @@ if(isset($_POST['submit'])){
       ?>
       <input type="text" name="name" required placeholder="enter your name">
       <input type="email" name="email" required placeholder="enter your email">
-      <input type="tel" name="mobile-num" required placeholder="enter your mobile number" maxlength="10" pattern="[0-9]{10}">
+      <input type="tel" name="mobile_num" required placeholder="enter your mobile number" maxlength="10" pattern="[0-9]{10}">
       <input type="password" name="password" required placeholder="enter your password">
       <input type="password" name="cpassword" required placeholder="confirm your password">
       <!-- <select name="user_type">
